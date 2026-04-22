@@ -18,8 +18,6 @@ html {
   --cyan: #18b8c2;
 
   --dark: #1a1512;
-  --dark-soft: #2a2420;
-  --dark-muted: #a39a8f;
   --dark-light: #d4cdc4;
 
   --green-soft: #2f5d50;
@@ -27,7 +25,6 @@ html {
   --green-muted: #cfe3db;
 
   --radius: 24px;
-
   --shadow-pink: 6px 6px 0 var(--pink);
   --shadow-yellow: 6px 6px 0 var(--yellow);
   --shadow-cyan: 6px 6px 0 var(--cyan);
@@ -59,8 +56,6 @@ img {
 .section {
   padding: 96px 0;
 }
-
-/* Header */
 
 .site-header {
   position: sticky;
@@ -118,8 +113,6 @@ img {
   transform: translateY(-2px);
 }
 
-/* Layout */
-
 .hero {
   padding-top: 80px;
   padding-bottom: 96px;
@@ -136,8 +129,6 @@ img {
 .hero-grid {
   align-items: center;
 }
-
-/* Type */
 
 h1,
 h2,
@@ -191,8 +182,6 @@ p {
   opacity: 0.6;
 }
 
-/* Tags */
-
 .tag {
   display: inline-block;
   padding: 6px 12px;
@@ -205,19 +194,13 @@ p {
   box-shadow: 2px 2px 0 var(--line);
 }
 
-.tag-pink {
-  background: var(--pink);
-}
-
+.tag-pink { background: var(--pink); }
 .tag-yellow {
-  background: var(--yellow);
-}
-
-.tag-cyan {
-  background: var(--cyan);
-}
-
-/* Shared cards */
+    background: var(--yellow);
+    color: var(--ink);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+.tag-cyan { background: var(--cyan); }
 
 .info-card,
 .alumni-card,
@@ -228,8 +211,6 @@ p {
   border: 1.5px solid var(--line);
   border-radius: var(--radius);
 }
-
-/* Hero */
 
 .hero-art {
   display: flex;
@@ -296,17 +277,8 @@ p {
   color: var(--muted);
 }
 
-/* Angles */
-
-.tilt-right {
-  transform: rotate(2deg);
-}
-
-.tilt-left {
-  transform: rotate(-2deg);
-}
-
-/* Dark / green section */
+.tilt-right { transform: rotate(2deg); }
+.tilt-left { transform: rotate(-2deg); }
 
 .section-dark {
   background: var(--green-soft);
@@ -318,7 +290,8 @@ p {
   color: #ffffff;
 }
 
-.section-dark p {
+.section-dark p,
+.step p {
   color: var(--green-muted);
 }
 
@@ -342,10 +315,6 @@ p {
   align-items: flex-start;
 }
 
-.step p {
-  color: var(--green-muted);
-}
-
 .step-num {
   flex: 0 0 32px;
   width: 32px;
@@ -364,7 +333,7 @@ p {
   margin-top: 40px;
   padding: 28px 30px;
   background: var(--green-deep);
-  color: #ffffff;
+  color: #fff;
   box-shadow: var(--shadow-pink);
   font-size: 20px;
   font-style: italic;
@@ -375,15 +344,6 @@ p {
   background: var(--paper);
   color: var(--ink);
 }
-
-/* Welcome image */
-
-.welcome-image {
-  margin-top: 20px;
-  max-width: 260px;
-}
-
-/* Alumni */
 
 .alumni-card {
   background: var(--paper);
@@ -425,7 +385,6 @@ p {
   display: flex;
   gap: 20px;
   width: max-content;
-  animation: none;
 }
 
 .alumni-person {
@@ -470,65 +429,6 @@ p {
   opacity: 0.85;
 }
 
-.alumni-dots {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.alumni-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(26, 21, 18, 0.25);
-}
-
-.alumni-dots span.is-active {
-  background: rgba(26, 21, 18, 0.75);
-}
-
-/* Testimonial */
-
-.testimonial-section .tag {
-  margin-bottom: 14px;
-}
-
-.testimonial-section h3 {
-  font-size: clamp(1.6rem, 3vw, 2rem);
-  margin-bottom: 20px;
-}
-
-.testimonial-card {
-  background: var(--paper);
-  padding: 28px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-pink);
-  border: 1.5px solid var(--line);
-  margin-top: 20px;
-}
-
-.testimonial-card p {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.55;
-  margin-bottom: 18px;
-}
-
-.testimonial-card cite {
-  display: block;
-  margin-top: 12px;
-  font-style: italic;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-.testimonial-image {
-  max-width: 360px;
-}
-
-/* Lists + welcome */
-
 .list-block {
   margin-bottom: 40px;
 }
@@ -562,7 +462,10 @@ p {
   font-weight: 700;
 }
 
-/* Artifacts */
+.welcome-image {
+  margin-top: 20px;
+  max-width: 260px;
+}
 
 .artifact-stack {
   display: grid;
@@ -582,12 +485,6 @@ p {
   grid-column: 1 / -1;
 }
 
-.split-left .lede-dark {
-  margin-top: 8px;
-}
-
-/* Outcomes */
-
 .outcome {
   margin-bottom: 40px;
 }
@@ -598,13 +495,44 @@ p {
   line-height: 1.7;
 }
 
-/* Bio */
+.testimonial-section .tag {
+  margin-bottom: 14px;
+}
+
+.testimonial-section h3 {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  margin-bottom: 20px;
+}
+
+.testimonial-card {
+  background: var(--paper);
+  padding: 28px;
+  box-shadow: var(--shadow-pink);
+  margin-top: 20px;
+}
+
+.testimonial-card p {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+
+.testimonial-card cite {
+  display: block;
+  margin-top: 12px;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.testimonial-image {
+  max-width: 360px;
+}
 
 .bio-block {
   margin-bottom: 36px;
 }
-
-/* Final CTA */
 
 .final-cta-card {
   background: var(--dark);
@@ -635,8 +563,6 @@ p {
   font-size: 1.05rem;
   margin-top: 16px;
 }
-
-/* Money rain */
 
 #money-rain {
   position: fixed;
@@ -675,8 +601,21 @@ p {
   opacity: 0.15;
 }
 
-/* Tablet */
+.split-left,
+.split-right {
+    min-width: 0;
+  }
 
+  .alumni-card,
+  .alumni-carousel {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .alumni-track {
+    width: max-content;
+  }
+  
 @media (max-width: 1100px) {
   .hero-grid,
   .split {
@@ -692,14 +631,7 @@ p {
   .dark-image {
     max-width: 480px;
   }
-
-  .split-left,
-  .split-right {
-    max-width: 100%;
-  }
 }
-
-/* Mobile */
 
 @media (max-width: 760px) {
   .container {
@@ -761,8 +693,20 @@ p {
     margin-top: 12px;
   }
 
-  .split-left h2 {
-    margin-bottom: 16px;
+  .alumni-card,
+  .welcome-card {
+    width: 100%;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .alumni-card {
+    padding: 18px 16px 16px;
+  }
+
+  .welcome-card {
+    padding: 22px 20px;
   }
 
   .welcome-image {
@@ -770,15 +714,8 @@ p {
     max-width: 220px;
   }
 
-  .alumni-card {
-    padding: 18px 16px 16px;
-    margin-top: 16px;
-    border-radius: 20px;
-    box-shadow: 5px 5px 0 var(--yellow);
-  }
-
   .alumni-carousel {
-    scroll-snap-type: x proximity;
+    max-width: 100%;
   }
 
   .alumni-track {
@@ -834,7 +771,6 @@ p {
   }
 
   .final-cta-card,
-  .welcome-card,
   .quote-card,
   .info-card {
     padding: 24px;
