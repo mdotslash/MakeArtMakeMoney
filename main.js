@@ -5,55 +5,68 @@ const alumniCarousel = document.querySelector('.alumni-carousel');
 const alumniTrack = document.querySelector('.alumni-track');
 
 if (alumniCarousel && alumniTrack) {
-  let isDown = false;
+  let isPointerDown = false;
   let startX = 0;
-  let scrollLeft = 0;
+  let startScrollLeft = 0;
 
   function getLoopPoint() {
     return alumniTrack.scrollWidth / 2;
+  }
+
+  function resetStartPosition() {
+    const loopPoint = getLoopPoint();
+    if (!loopPoint) return;
+    alumniCarousel.scrollLeft = loopPoint;
   }
 
   function wrapScroll() {
     const loopPoint = getLoopPoint();
     if (!loopPoint) return;
 
-    if (alumniCarousel.scrollLeft >= loopPoint) {
+    if (alumniCarousel.scrollLeft >= loopPoint * 1.5) {
       alumniCarousel.scrollLeft -= loopPoint;
-    } else if (alumniCarousel.scrollLeft <= 0) {
+    } else if (alumniCarousel.scrollLeft <= loopPoint * 0.5) {
       alumniCarousel.scrollLeft += loopPoint;
     }
   }
 
-  // start in the middle so user can drag both directions
-  requestAnimationFrame(() => {
-    alumniCarousel.scrollLeft = getLoopPoint() / 2;
-  });
+  function initCarousel() {
+    resetStartPosition();
+    wrapScroll();
+  }
 
-  alumniCarousel.addEventListener('scroll', wrapScroll);
+  // wait for layout/images
+  window.addEventListener('load', initCarousel);
+  window.addEventListener('resize', initCarousel);
 
-  alumniCarousel.addEventListener('mousedown', (e) => {
-    isDown = true;
+  alumniCarousel.addEventListener('scroll', wrapScroll, { passive: true });
+
+  alumniCarousel.addEventListener('pointerdown', (e) => {
+    isPointerDown = true;
     alumniCarousel.classList.add('is-dragging');
-    startX = e.pageX - alumniCarousel.offsetLeft;
-    scrollLeft = alumniCarousel.scrollLeft;
+    startX = e.clientX;
+    startScrollLeft = alumniCarousel.scrollLeft;
   });
 
-  alumniCarousel.addEventListener('mouseleave', () => {
-    isDown = false;
+  window.addEventListener('pointerup', () => {
+    isPointerDown = false;
     alumniCarousel.classList.remove('is-dragging');
   });
 
-  alumniCarousel.addEventListener('mouseup', () => {
-    isDown = false;
+  alumniCarousel.addEventListener('pointerleave', () => {
+    isPointerDown = false;
     alumniCarousel.classList.remove('is-dragging');
   });
 
-  alumniCarousel.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
+  alumniCarousel.addEventListener('pointermove', (e) => {
+    if (!isPointerDown) return;
     e.preventDefault();
-    const x = e.pageX - alumniCarousel.offsetLeft;
-    const walk = (x - startX) * 1.2;
-    alumniCarousel.scrollLeft = scrollLeft - walk;
+    const walk = (e.clientX - startX) * 1.2;
+    alumniCarousel.scrollLeft = startScrollLeft - walk;
+  });
+
+  alumniCarousel.querySelectorAll('img').forEach((img) => {
+    img.setAttribute('draggable', 'false');
   });
 }
 
@@ -64,67 +77,55 @@ function makeItRain(callback) {
   const container = document.getElementById('money-rain');
   const overlay = document.getElementById('transition-overlay');
 
-  // fallback: if container missing, just continue
   if (!container) {
     if (typeof callback === 'function') callback();
     return;
   }
 
   const COUNT = 40;
-  const BASE_DURATION = 900; // ms
-  const STAGGER = 20; // ms between drops
+  const BASE_DURATION = 900;
+  const STAGGER = 20;
 
   for (let i = 0; i < COUNT; i++) {
     const el = document.createElement('img');
     el.src = 'images/money.png';
     el.className = 'money';
 
-    // spread evenly across screen with slight randomness
     const spread = 100 / COUNT;
     el.style.left = Math.min(i * spread + Math.random() * 1.5, 96) + 'vw';
-
-    // start above viewport
     el.style.top = (-100 - Math.random() * 200) + 'px';
 
-    // animation speed
     const duration = BASE_DURATION + Math.random() * 600;
     el.style.animationDuration = duration + 'ms';
 
-    // rotation + scale
     const rotation = Math.random() * 360;
     const scale = 0.8 + Math.random() * 0.5;
     el.style.transform = `rotate(${rotation}deg) scale(${scale})`;
 
-    // staggered entry (this is what makes it feel "rainy" not clumpy)
     setTimeout(() => {
       container.appendChild(el);
 
-      // cleanup
       setTimeout(() => {
         el.remove();
       }, duration + 800);
     }, i * STAGGER);
   }
 
-  // fade overlay in (softens page transition)
   setTimeout(() => {
     if (overlay) overlay.classList.add('active');
   }, 1000);
 
-  // redirect AFTER animation + fade
   setTimeout(() => {
     if (typeof callback === 'function') callback();
   }, 1800);
 }
 
 /**
- * Attach to ALL CTAs safely
+ * Attach to all CTAs safely
  */
 document.querySelectorAll('.js-rain-cta').forEach((button) => {
   button.addEventListener('click', function (e) {
     const href = button.getAttribute('href');
-
-    // don't hijack if no href
     if (!href) return;
 
     e.preventDefault();
