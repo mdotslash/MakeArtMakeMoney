@@ -13,7 +13,7 @@ if (alumniCarousel && alumniTrack) {
     return alumniTrack.scrollWidth / 2;
   }
 
-  function resetStartPosition() {
+  function setStartPosition() {
     const loopPoint = getLoopPoint();
     if (!loopPoint) return;
     alumniCarousel.scrollLeft = loopPoint;
@@ -23,19 +23,21 @@ if (alumniCarousel && alumniTrack) {
     const loopPoint = getLoopPoint();
     if (!loopPoint) return;
 
-    if (alumniCarousel.scrollLeft >= loopPoint * 1.5) {
+    if (alumniCarousel.scrollLeft >= loopPoint * 2 - alumniCarousel.clientWidth) {
       alumniCarousel.scrollLeft -= loopPoint;
-    } else if (alumniCarousel.scrollLeft <= loopPoint * 0.5) {
+    }
+
+    if (alumniCarousel.scrollLeft <= 0) {
       alumniCarousel.scrollLeft += loopPoint;
     }
   }
 
   function initCarousel() {
-    resetStartPosition();
-    wrapScroll();
+    requestAnimationFrame(() => {
+      setStartPosition();
+    });
   }
 
-  // wait for layout/images
   window.addEventListener('load', initCarousel);
   window.addEventListener('resize', initCarousel);
 
