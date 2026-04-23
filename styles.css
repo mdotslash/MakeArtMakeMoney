@@ -70,7 +70,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 0;
+  padding: 24px 12px;
 }
 
 .nav-brand {
@@ -215,6 +215,13 @@ p {
 .hero-art {
   display: flex;
   justify-content: center;
+}
+.hero-video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit; /* keeps your card styling */
 }
 
 .image-card {
@@ -615,7 +622,8 @@ p {
   .alumni-track {
     width: max-content;
   }
-  
+
+
 @media (max-width: 1100px) {
   .hero-grid,
   .split {
