@@ -390,13 +390,13 @@ p {
 
 .alumni-track {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   width: max-content;
 }
 
 .alumni-person {
-  width: 210px;
-  flex: 0 0 210px;
+  width: 180px;
+  flex: 0 0 180px;
   text-align: center;
 }
 
@@ -710,8 +710,15 @@ p {
   }
 
   .alumni-card {
-    padding: 18px 16px 16px;
-  }
+      width: 100%;
+      max-width: 340px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 18px 16px 16px;
+      border-radius: 20px;
+      box-shadow: 5px 5px 0 var(--yellow);
+    }
+
 
   .welcome-card {
     padding: 22px 20px;
@@ -724,33 +731,44 @@ p {
 
   .alumni-carousel {
     max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    touch-action: pan-x;
+  }
+
+  .alumni-carousel::-webkit-scrollbar {
+    display: none;
   }
 
   .alumni-track {
-    gap: 14px;
+    gap: 12px;
   }
 
   .alumni-person {
-    width: 130px;
-    flex: 0 0 130px;
+    width: 116px;
+    flex: 0 0 116px;
     scroll-snap-align: start;
   }
 
   .alumni-avatar-wrap {
-    width: 84px;
-    height: 84px;
+    width: 82px;
+    height: 82px;
     margin: 0 auto 10px;
     padding: 3px;
   }
 
   .alumni-person strong {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1.2;
     margin-bottom: 4px;
   }
 
   .alumni-person span {
     font-size: 12px;
-    line-height: 1.35;
+    line-height: 1.3;
   }
 
   .artifact-stack {
