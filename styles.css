@@ -746,6 +746,7 @@ p {
 .instructor-card h3 {
   font-size: clamp(1.25rem, 2vw, 1.6rem);
   margin-top: 16px;
+  max-width: 14ch;
 }
 
 .instructor-copy p:last-child {
