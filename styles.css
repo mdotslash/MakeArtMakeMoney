@@ -448,8 +448,8 @@ p {
   font-family: Georgia, serif;
   position: absolute;
   top: 8px;
-  left: 14px;
-  font-size: 50px;
+/*  left: 14px;*/
+  font-size: 54px;
   line-height: 1;
   font-weight: 800;
   color: var(--ink);
@@ -463,7 +463,7 @@ p {
   position: absolute;
   bottom: 8px;
   right: 14px;
-  font-size: 50px;
+  font-size: 54px;
   line-height: 1;
   font-weight: 800;
   color: var(--ink);
@@ -477,8 +477,8 @@ p {
   z-index: 1;
   font-size: 24px;
   line-height: 1.5;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 /* Alumni / community */
@@ -823,6 +823,39 @@ p {
   opacity: 0.15;
 }
 
+/* Page-load + scroll reveal motion */
+
+.tag.reveal {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.js .reveal-delay-1 {
+  --reveal-delay: 0.10s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
 /* Tablet */
 
 @media (max-width: 1100px) {
@@ -1013,19 +1046,19 @@ p {
     font-size: 17px;
   }
 
-  .testimonial-image,
+  .testimonial-image
 
-  .quote-card-kayla {
+  .quote-kayla {
     padding: 30px 24px 26px;
   }
 
-  .quote-card-kayla::before {
-    top: -20px;
-    left: 14px;
-    font-size: 92px;
+  .quote-kayla::before {
+    top: 8px;
+/*    left: 14px;*/
+    font-size: 54px;
   }
 
-  .quote-card-kayla p {
+  .quote-kayla p {
     font-size: 20px;
   }
 

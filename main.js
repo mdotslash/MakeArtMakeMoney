@@ -2,6 +2,53 @@ document.documentElement.classList.add('js');
 console.log('Make Art Make Money loaded');
 
 /**
+ * Page-load + scroll reveal
+ */
+const revealItems = document.querySelectorAll(
+  '.section .tag, .hero-copy, .hero-art, .section:not(.section-hero) .split-left, .section:not(.section-hero) .split-right, .final-cta-card'
+);
+
+revealItems.forEach((item) => {
+  item.classList.add('reveal');
+
+  // tags appear first (no delay)
+  if (item.classList.contains('tag')) return;
+
+  // hero image + right columns slightly delayed
+  if (
+    item.classList.contains('hero-art') ||
+    item.classList.contains('split-right')
+  ) {
+    item.classList.add('reveal-delay-1');
+  }
+});
+
+requestAnimationFrame(() => {
+  document.querySelectorAll('.section-hero .reveal').forEach((item) => {
+    item.classList.add('is-visible');
+  });
+});
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.18,
+    rootMargin: '0px 0px -80px 0px'
+  }
+);
+
+document
+  .querySelectorAll('.section:not(.section-hero) .reveal, .final-cta-card.reveal')
+  .forEach((item) => revealObserver.observe(item));
+  
+/**
  * Seamless Alumni Marquee
  * Requires the alumni list to be duplicated once in the HTML:
  * Erica, Pablo, Jacoba, Erica, Pablo, Jacoba
