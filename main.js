@@ -58,7 +58,7 @@ if (alumniCarousel && alumniTrack) {
   const originalItems = Array.from(alumniTrack.children);
   let animationFrame;
   let position = 0;
-  let speed = 0.3;
+  let speed = 0.4;
   let isPaused = false;
   let loopWidth = 0;
 
