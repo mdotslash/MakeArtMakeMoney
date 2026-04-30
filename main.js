@@ -1,6 +1,57 @@
 document.documentElement.classList.add('js');
 console.log('Make Art Make Money loaded');
 
+
+/**
+ * Analytics helper
+ */
+function trackEvent(eventName, properties = {}) {
+  if (typeof window.op === 'function') {
+    window.op('track', eventName, properties);
+  }
+
+  console.log('Analytics event:', eventName, properties);
+}
+
+/**
+ * Anchor Visits & Section Views
+ */
+
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    trackEvent('anchor_visit', {
+      section: window.location.hash.replace('#', '')
+    });
+  }
+});
+
+
+const trackedSections = document.querySelectorAll(
+  'section[id="program"], section[id="why"], section[id="community"], section[id="outcomes"], section[id="kayla"], section[id="instructors"], section[id="register"]'
+);
+
+if ('IntersectionObserver' in window) {
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          trackEvent(`section_view_${entry.target.id}`, {
+            section: entry.target.id
+          });
+
+          sectionObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.45
+    }
+  );
+
+  trackedSections.forEach((section) => sectionObserver.observe(section));
+}
+
+
 /**
  * Page-load + scroll reveal
  */
@@ -29,24 +80,28 @@ requestAnimationFrame(() => {
   });
 });
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },
-  {
-    threshold: 0.18,
-    rootMargin: '0px 0px -80px 0px'
-  }
-);
+if ('IntersectionObserver' in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.18,
+      rootMargin: '0px 0px -80px 0px'
+    }
+  );
 
-document
-  .querySelectorAll('.section:not(.section-hero) .reveal, .final-cta-card.reveal')
-  .forEach((item) => revealObserver.observe(item));
+  document
+    .querySelectorAll('.section:not(.section-hero) .reveal, .final-cta-card.reveal')
+    .forEach((item) => revealObserver.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add('is-visible'));
+}
   
 /**
  * Seamless Alumni Marquee
@@ -63,32 +118,32 @@ if (alumniCarousel && alumniTrack) {
   let loopWidth = 0;
 
   function setupMarquee() {
-    cancelAnimationFrame(animationFrame);
+  cancelAnimationFrame(animationFrame);
 
-    // Reset to original items only
-    alumniTrack.innerHTML = '';
+  // Reset to original items only
+  alumniTrack.innerHTML = '';
+  originalItems.forEach((item) => {
+    alumniTrack.appendChild(item.cloneNode(true));
+  });
+
+  // Clone until the track is wide enough for a seamless loop
+  while (alumniTrack.scrollWidth < alumniCarousel.offsetWidth * 2.5) {
     originalItems.forEach((item) => {
       alumniTrack.appendChild(item.cloneNode(true));
     });
-
-    // Clone until the track is wide enough for a seamless loop
-    while (alumniTrack.scrollWidth < alumniCarousel.offsetWidth * 2.5) {
-      originalItems.forEach((item) => {
-        alumniTrack.appendChild(item.cloneNode(true));
-      });
-    }
-
-    loopWidth = alumniTrack.scrollWidth / 2;
-
-    // Add one more full set for safety
-    originalItems.forEach((item) => {
-      alumniTrack.appendChild(item.cloneNode(true));
-    });
-
-    position = 0;
-    alumniTrack.style.transform = 'translateX(0)';
-    animationFrame = requestAnimationFrame(marquee);
   }
+
+  // Add one more full set for safety
+  originalItems.forEach((item) => {
+    alumniTrack.appendChild(item.cloneNode(true));
+  });
+
+  loopWidth = alumniTrack.scrollWidth / 2;
+
+  position = 0;
+  alumniTrack.style.transform = 'translateX(0)';
+  animationFrame = requestAnimationFrame(marquee);
+}
 
   function marquee() {
     if (!isPaused && loopWidth > 0) {
@@ -187,6 +242,14 @@ document.querySelectorAll('.js-rain-cta').forEach((button) => {
     if (!href) return;
 
     e.preventDefault();
+
+    const section = button.closest('section')?.id || 'nav';
+
+    trackEvent(`clicked_cta_${section}`, {
+      text: button.textContent.trim(),
+      href,
+      section
+    });
 
     makeItRain(() => {
       window.location.href = href;

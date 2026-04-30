@@ -12,7 +12,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
   <link href="styles.css" rel="stylesheet">
   </link>
- </head>
+  <script>
+    window.op = window.op || function () {
+      var n = [];
+      return new Proxy(function () {
+        arguments.length && n.push([].slice.call(arguments));
+      }, {
+        get: function (t, r) {
+          return r === "q" ? n : function () {
+            n.push([r].concat([].slice.call(arguments)));
+          };
+        },
+        has: function (t, r) {
+          return r === "q";
+        }
+      });
+    }();
+
+    window.op('init', {
+      clientId: '3437c496-8699-411e-9fe0-d447c55dbf70',
+      trackScreenViews: true,
+      trackOutgoingLinks: false,
+      trackAttributes: true
+    });
+  </script>
+  <script src="https://openpanel.dev/op1.js" defer async></script>
+  </head>
  <body>
   <div class="site-shell">
    <header class="site-header">
@@ -28,7 +53,7 @@
     </div>
    </header>
    <main>
-    <section class="section section-hero hero">
+    <section class="section section-hero hero" id="hero">
      <div class="container hero-grid">
       <div class="hero-copy">
        <div class="tag tag-pink">
@@ -53,17 +78,15 @@
           <span class="label">
            Dates
           </span>
-          <strong>
-           May 30 &ndash; June 20
-          </strong><span class="muted">10am - 12pm</span>
+          <strong>May 30 &ndash; June 20</strong>
+          <span class="muted">10am – 12pm</span>
          </div>
          <div>
           <span class="label">
            Location
           </span>
-          <strong>
-           Online</strong><span class="muted">Hosted by Santa Fe Community College</span>
-          
+          <strong>Online</strong>
+          <span class="muted">Hosted by Santa Fe Community College</span>
          </div>
         </div>
         <div class="info-row border-top">
@@ -109,7 +132,7 @@
       </div>
      </div>
     </section>
-    <section class="section section-course section-dark">
+    <section class="section section-course section-dark" id="program">
      <div class="container split">
       <div class="split-left">
        <div class="tag tag-yellow">
@@ -152,7 +175,7 @@
          </div>
          <div>
           <h3>
-           An exploratory + practical curriculum
+           An exploratory & practical curriculum
           </h3>
           <p>
            Each session blends creative prompts, reflection, and storytelling with concrete tools to help you turn your ideas into action.
@@ -165,7 +188,7 @@
          </div>
          <div>
           <h3>
-           Committed mentorship + support
+           Committed mentorship & support
           </h3>
           <p>
            This course is designed and taught by working artists and creative professionals who are deeply invested
@@ -191,12 +214,12 @@
         </div>
        </div>
        <div class="quote-card alt-blush tilt-right">
-        You’ll be supported, challenged, and have your vision nurtured in a community of like-minded creatives.
+        You’ll be <strong>supported, challenged</strong>, and have your <strong>vision nurtured</strong> by a community of like-minded creatives.
       </div>
       </div>
      </div>
     </section>
-    <section class="section section-course-detail">
+    <section class="section section-course-detail" id="why">
      <div class="container split">
       <div class="split-left">
        <div class="tag tag-cyan">
@@ -221,15 +244,15 @@
        </p>
        <p class="lede-dark">
         <strong>Make Art Make Money is different.</strong><br>
-        We start with your creative practice, and dig into the unique gifts, strengths, and values that inspire you as an artist or maker. We use this as a foundation for crafting a vision, goals and strategy to build your business around.
+        We start with your creative practice, and dig into the unique gifts, strengths, and values that inspire you as an artist or maker. This becomes the foundation around which we craft your vision, goals and business strategy.
        </p>
        <div class="quote-card light-card tilt-right">
-        We give you the <strong>tools, resources, and support</strong> to move forward with clarity and the confidence to build a successful creative business that feels truly aligned.
+        We give you the <strong>tools, resources, and support</strong>, and <strong>confidence</strong> to build a successful creative business.
        </div>
       </div>
      </div>
     </section>
-    <section class="section section-community">
+    <section class="section section-community" id="community">
      <div class="container split">
       <div class="split-left">
        <div class="tag tag-pink">
@@ -308,7 +331,7 @@
         </h3>
         <ul class="clean-list clean-list-light">
          <li>
-          Women-led, immigrant-led, and BIPOC-led, and LGBTQIA+ creative businesses
+          Women-led, immigrant-led, BIPOC-led, and LGBTQIA+ creative businesses
          </li>
          <li>
           Artists and entrepreneurs working with rural or under-resourced communities
@@ -330,7 +353,7 @@
       </div>
      </div>
     </section>
-    <section class="section section-outcomes">
+    <section class="section section-outcomes" id="outcomes">
      <div class="container split">
       <div class="split-left">
        <div class="tag tag-cyan">
@@ -358,7 +381,7 @@
         </div>
         <div>
          <h3>
-          Clarity on your work and direction
+          Clarity on your work & vision
          </h3>
          <p>
           A deeper understanding of your strengths, values, and the role your work plays in your community.
@@ -374,7 +397,7 @@
           Language to talk about what you do
          </h3>
          <p>
-          The ability to clearly communicate the impact of your work clearly, whether you&rsquo;re speaking to collaborators, funders, or fans.
+          The ability to clearly communicate the impact of your work, whether you&rsquo;re speaking to collaborators, funders, or fans.
          </p>
         </div>
        </div>
@@ -400,7 +423,7 @@
             Insights to help you better serve your fans
            </h3>
            <p>
-            Business is built on relationships, and it's important to be intentional about how connect with your community, customers, and supporters.
+            Business is built on relationships, and it's important to be intentional about how you connect with your community, customers, and supporters.
            </p>
           </div>
         </div>
@@ -410,7 +433,7 @@
         </div>
         <div>
          <h3>
-          Clear boundaries, values to protect your soul 
+          Clear boundaries & values to protect your soul 
          </h3>
          <p>
           Real talk. You're going to need a strong moral compass to survive running a business under <strong>Late Stage Capitalism</strong> 🔥💩. 
@@ -426,7 +449,7 @@
       </div>
      </div>
     </section>
-    <section class="section section-artist-story testimonial-section">
+    <section class="section section-artist-story testimonial-section" id="kayla">
      <div class="container split">
       <div class="split-left">
        <div class="tag tag-pink">
@@ -464,7 +487,7 @@
       </div>
      </div>
     </section>
-    <section class="section section-instructors">
+    <section class="section section-instructors" id="instructors">
      <div class="container split split-feature">
       <div class="split-left">
        <div class="tag tag-cyan">
@@ -534,30 +557,30 @@
       </div>
      </div>
     </section>
+    <section class="section section-final final-cta" id="register">
+     <div class="container narrow">
+      <div class="final-cta-card">
+       <div class="tag tag-yellow">
+        Make Art Make Money
+       </div>
+       <h2>
+        Join Us
+       </h2>
+       <p class="lede">
+        Get the support you need
+        <br/>
+        to help your creative practice bloom 🌷.
+       </p>
+       <p class="final-meta">
+        <strong>May 30 &ndash; June 20</strong><br/>
+         Online &middot; Limited to 10 participants
+       </p>
+       <a class="button js-rain-cta" href="https://sfcc.augusoft.net/index.cfm?method=ClassInfo.ClassInformation&amp;int_class_id=7616" rel="noopener noreferrer" target="_blank">✨ Sign Me Up! ✨</a>
+      </div>
+     </div>
+  </section>
    </main>
   </div>
-  <section class="section section-final final-cta" id="register">
-   <div class="container narrow">
-    <div class="final-cta-card">
-     <div class="tag tag-yellow">
-      Make Art Make Money
-     </div>
-     <h2>
-      Join Us
-     </h2>
-     <p class="lede">
-      Get the support you need
-      <br/>
-      to help your creative practice bloom 🌷.
-     </p>
-     <p class="final-meta">
-      <strong>May 30 &ndash; June 20</strong><br/>
-       Online &middot; Limited to 10 participants
-     </p>
-     <a class="button js-rain-cta" href="https://sfcc.augusoft.net/index.cfm?method=ClassInfo.ClassInformation&amp;int_class_id=7616" rel="noopener noreferrer" target="_blank">✨ Sign Me Up! ✨</a>
-    </div>
-   </div>
-  </section>
   <div aria-hidden="true" id="money-rain">
   </div>
   <div id="transition-overlay">

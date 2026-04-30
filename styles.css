@@ -87,6 +87,7 @@ a {
   background: var(--paper);
 }
 
+
 /* Header */
 
 .site-header {
@@ -241,6 +242,12 @@ p {
   letter-spacing: 0.08em;
   font-weight: 700;
   opacity: 0.6;
+}
+
+/* Section Scroll Behavior */
+
+section[id] {
+  scroll-margin-top: 96px;
 }
 
 /* Tags */
@@ -944,6 +951,10 @@ p {
 
   .section {
     padding: 64px 0;
+  }
+
+  section[id] {
+    scroll-margin-top: 82px;
   }
 
   .nav {
