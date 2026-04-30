@@ -50,43 +50,62 @@ document
   
 /**
  * Seamless Alumni Marquee
- * Requires the alumni list to be duplicated once in the HTML:
- * Erica, Pablo, Jacoba, Erica, Pablo, Jacoba
  */
 const alumniCarousel = document.querySelector('.alumni-carousel');
 const alumniTrack = document.querySelector('.alumni-track');
 
 if (alumniCarousel && alumniTrack) {
-  let isPaused = false;
+  const originalItems = Array.from(alumniTrack.children);
   let animationFrame;
-  let speed = 0.35; // lower = slower, higher = faster
+  let position = 0;
+  let speed = 0.3;
+  let isPaused = false;
+  let loopWidth = 0;
 
-  function getLoopPoint() {
-    return alumniTrack.scrollWidth / 2;
+  function setupMarquee() {
+    cancelAnimationFrame(animationFrame);
+
+    // Reset to original items only
+    alumniTrack.innerHTML = '';
+    originalItems.forEach((item) => {
+      alumniTrack.appendChild(item.cloneNode(true));
+    });
+
+    // Clone until the track is wide enough for a seamless loop
+    while (alumniTrack.scrollWidth < alumniCarousel.offsetWidth * 2.5) {
+      originalItems.forEach((item) => {
+        alumniTrack.appendChild(item.cloneNode(true));
+      });
+    }
+
+    loopWidth = alumniTrack.scrollWidth / 2;
+
+    // Add one more full set for safety
+    originalItems.forEach((item) => {
+      alumniTrack.appendChild(item.cloneNode(true));
+    });
+
+    position = 0;
+    alumniTrack.style.transform = 'translateX(0)';
+    animationFrame = requestAnimationFrame(marquee);
   }
 
   function marquee() {
-    if (!isPaused) {
-      alumniCarousel.scrollLeft += speed;
+    if (!isPaused && loopWidth > 0) {
+      position += speed;
 
-      const loopPoint = getLoopPoint();
-
-      if (loopPoint && alumniCarousel.scrollLeft >= loopPoint) {
-        alumniCarousel.scrollLeft = 0;
+      if (position >= loopWidth) {
+        position = 0;
       }
+
+      alumniTrack.style.transform = `translateX(${-position}px)`;
     }
 
     animationFrame = requestAnimationFrame(marquee);
   }
 
-  function initAlumniMarquee() {
-    cancelAnimationFrame(animationFrame);
-    alumniCarousel.scrollLeft = 0;
-    animationFrame = requestAnimationFrame(marquee);
-  }
-
-  window.addEventListener('load', initAlumniMarquee);
-  window.addEventListener('resize', initAlumniMarquee);
+  window.addEventListener('load', setupMarquee);
+  window.addEventListener('resize', setupMarquee);
 
   alumniCarousel.addEventListener('mouseenter', () => {
     isPaused = true;

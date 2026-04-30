@@ -38,6 +38,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: Inter, system-ui, sans-serif;
+  font-size: 1.0rem ;
   line-height: 1.5;
 }
 
@@ -59,6 +60,7 @@ a {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 40px;
+  align-items: start;
 }
 
 .narrow {
@@ -79,7 +81,10 @@ a {
   background: var(--paper);
 }
 .section-instructors {
-/*  background: var(--blush-bg);*/
+/*  background: var(--warm-bg);*/
+}
+.section-final {
+  background: var(--paper);
 }
 
 /* Header */
@@ -143,6 +148,13 @@ a {
   transform: translateY(-2px);
 }
 
+a:focus-visible,
+.button:focus-visible,
+.nav-cta:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 4px;
+}
+
 /* Layout */
 
 .hero {
@@ -155,7 +167,7 @@ a {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.1fr);
   gap: clamp(48px, 6vw, 80px);
-  align-items: center;
+  align-items: start;
 }
 
 .split {
@@ -182,7 +194,7 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(3rem, 5vw, 4rem);
+  font-size: clamp(2.5rem, 4.7vw, 3.7rem);
   max-width: 24ch;
 }
 
@@ -306,6 +318,7 @@ p {
 }
 
 .hero-art .image-card {
+  align-items: start;
   width: min(100%, 520px);
   box-shadow: var(--shadow-cyan);
 }
@@ -427,7 +440,7 @@ p {
 .quote-card {
   margin-top: 36px;
   padding: 28px 30px;
-  background: var(--green-deep);
+  background: var(--green-soft);
   color: #fff;
   box-shadow: var(--shadow-pink);
   font-size: 24px;
@@ -486,7 +499,7 @@ p {
 .alumni-card {
   background: var(--paper);
   box-shadow: var(--shadow-yellow);
-  padding: 24px;
+  padding: 24px 8px;
   margin-top: 36px;
   margin-bottom: 36px;
   overflow: hidden;
@@ -495,7 +508,7 @@ p {
 
 .alumni-label {
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 700;
@@ -504,18 +517,26 @@ p {
 }
 
 .alumni-carousel {
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
   width: 100%;
+  padding-inline: 0;
   cursor: default;
-}
 
-.alumni-carousel::-webkit-scrollbar {
-  display: none;
-}
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
 
-.alumni-carousel.is-dragging {
-  cursor: grabbing;
+  mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
 }
 
 .alumni-track {
@@ -523,6 +544,13 @@ p {
   gap: 16px;
   width: max-content;
   will-change: transform;
+  padding: 8px 0px 12px;
+}
+
+.alumni-person {
+  width: 180px;
+  flex: 0 0 180px;
+  text-align: center;
 }
 
 .alumni-person {
@@ -858,7 +886,7 @@ p {
 }
 /* Tablet */
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
     .hero-grid,
     .split,
     .split-feature {
@@ -1009,6 +1037,7 @@ p {
 
   .alumni-track {
     gap: 12px;
+    padding: 6px 16px 10px;
   }
 
   .alumni-person {
@@ -1046,7 +1075,7 @@ p {
     font-size: 17px;
   }
 
-  .testimonial-image
+  .testimonial-image,
 
   .quote-kayla {
     padding: 30px 24px 26px;
