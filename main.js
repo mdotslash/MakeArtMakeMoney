@@ -1,16 +1,20 @@
 document.documentElement.classList.add('js');
-console.log('Make Art Make Money loaded');
 
 
 /**
  * Analytics helper
  */
+
+const DEBUG_ANALYTICS = false;
+
 function trackEvent(eventName, properties = {}) {
   if (typeof window.op === 'function') {
     window.op('track', eventName, properties);
   }
 
-  console.log('Analytics event:', eventName, properties);
+  if (DEBUG_ANALYTICS) {
+    console.log('Analytics event:', eventName, properties);
+  }
 }
 
 /**
